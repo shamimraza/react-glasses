@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import useAuth from "../../hooks/UseHooks";
 
 const Menus = () => {
   const links = ["products", "about", "contact", "blog"];
@@ -15,7 +16,8 @@ const Menus = () => {
   );
 };
 const NavBar = () => {
-  const user = false;
+  const { user, logOut } = useAuth();
+
   return (
     <>
       <div className="navbar bg-base-100">
@@ -53,13 +55,13 @@ const NavBar = () => {
             <Menus />
           </ul>
         </div>
-
+        {/* // avatar part .................................. */}
         <div className="navbar-end">
           {user?.email ? (
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                 <div className="w-10 rounded-full">
-                  <img src="https://i.ibb.co/y0yrnYQ/1681283571946.jpg" />
+                  <img src={user.photoURL} alt={user.displayName} />
                 </div>
               </label>
               <ul
@@ -70,7 +72,9 @@ const NavBar = () => {
                   <button className="btn btn-sm  btn-ghost">Shamim</button>
                 </li>
                 <li>
-                  <button className="btn btn-sm  btn-ghost">Logout</button>
+                  <button onClick={logOut} className="btn btn-sm  btn-ghost">
+                    Logout
+                  </button>
                 </li>
               </ul>
             </div>
